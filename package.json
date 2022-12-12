@@ -4,7 +4,7 @@
   "description": "Made to email from vgy website forms",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "Viggo Skjonsberg",
   "license": "ISC",
