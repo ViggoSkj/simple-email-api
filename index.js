@@ -51,6 +51,8 @@ app.post("/", async (req, res) => {
         }
     
         await email.SendMail([to], subject, "", html)
+
+        res.statusMessage = "succesfull api call"
         res.sendStatus(200)
     } catch(err) {
         res.sendStatus(500)

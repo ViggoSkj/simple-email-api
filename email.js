@@ -38,6 +38,7 @@ async function SendMail(to, subject="no-reply", text="", html="") {
         }
 
         const result = await transporter.sendMail(data)
+        console.log(result)
         return result
     } catch(err) {
         console.error("Could not send email", err)
