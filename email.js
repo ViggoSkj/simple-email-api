@@ -9,15 +9,18 @@ const senderConfig = {
 ///////////////////////////////////////////////////////////////
 ///////////////  NodeMailer
 ///////////////////////////////////////////////////////////////
-
 const transporter = nodemailer.createTransport({
+    service: "gmail",
+    type: "SMTP",
     host: "smtp.gmail.com",
-    port: 587,
+    port: 465 ,
+    secure: true,
     auth: {
         user: senderConfig.email,
         pass: senderConfig.password
     }
 })
+
 transporter.verify().then(res => {
     if (res == true) console.log("Succefully loged into no-reply email")
 }).catch(console.error) // TODO change console.log to own logger
@@ -27,7 +30,7 @@ async function SendMail(to, subject="no-reply", text="", html="") {
         const recivers = to.join(", ")
 
         const data = {
-            from: senderConfig.emai,
+            from: senderConfig.email,
             to: recivers,
             subject: subject,
             text: text,
