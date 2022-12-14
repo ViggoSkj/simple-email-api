@@ -31,26 +31,30 @@ async function AuthMiddleware(req, res, next) {
 app.use("/", AuthMiddleware)
 
 app.post("/", async (req, res) => {
-    let to = req.body.to
-    let html = req.body.html
-    let subject = req.body.subject
-
-    if (typeof to === undefined) {
-        res.statusMessage = "Didn't set body parameter 'to'."
-        res.sendStatus(400).end()
-        return
-    } else if (typeof html === undefined) {
-        res.statusMessage = "Didn't set body parameter 'html'."
-        res.sendStatus(400).end()
-        return
-    } else if (typeof subject === undefined) {
-        res.statusMessage = "Didn't set body parameter 'subject'."
-        res.sendStatus(400).end()
-        return
+    try {
+        let to = req.body.to
+        let html = req.body.html
+        let subject = req.body.subject
+    
+        if (typeof to === undefined) {
+            res.statusMessage = "Didn't set body parameter 'to'."
+            res.sendStatus(400).end()
+            return
+        } else if (typeof html === undefined) {
+            res.statusMessage = "Didn't set body parameter 'html'."
+            res.sendStatus(400).end()
+            return
+        } else if (typeof subject === undefined) {
+            res.statusMessage = "Didn't set body parameter 'subject'."
+            res.sendStatus(400).end()
+            return
+        }
+    
+        await email.SendMail([to], subject, "", html)
+        res.sendStatus(200)
+    } catch(err) {
+        res.sendStatus(500)
     }
-
-    await email.SendMail([to], subject, "", html)
-    res.sendStatus(200)
 })
 
 
